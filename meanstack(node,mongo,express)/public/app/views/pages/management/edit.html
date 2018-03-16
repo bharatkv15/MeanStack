@@ -1,0 +1,49 @@
+<div class="page-header">
+    <h1 class="styleCenter">Edit User</h1>
+</div>
+
+<br>
+
+<ul class="nav nav-tabs">
+    <li role="presentation" ng-click="edit.namePhase();" ng-class="nameTab"><a href="#">Name</a></li>
+    <li role="presentation" ng-click="edit.usernamePhase();" ng-class="usernameTab"><a href="#">Username</a></li>
+    <li role="presentation" ng-click="edit.emailPhase();" ng-class="emailTab"><a href="#">E-mail</a></li>
+    <li role="presentation" ng-click="edit.permissionsPhase();" ng-class="permissionsTab"><a href="#">Permission</a></li>
+</ul>
+
+<form class="edit.nameForm" ng-show="edit.phase1" ng-submit="edit.updateName(newName, edit.newForm.name.$valid)" novalidate>
+    
+    <div ng-class="{ 'has-success':(edit.nameForm.name.$valid && !edit.nameForm.name.$pristine), 'has-error':(!edit.nameForm.name.$valid && 
+    !edit.nameForm.name.$pristine) || (!nameForm.name.$valid && nameForm.$submitted) }">
+    
+         <label>Name</label>
+        
+         <input ng-disabled="edit.disabled" class="form-control" type="text" name="name" placeholder="Please enter name" ng-model="newName" 
+        ng-pattern="/^([a-zA-Z]{3,30})+(( [a-zA-Z]{3,30})+)*$/" ng-minlength="3" ng-maxlength="30" required>
+        
+        <p class="help-block" ng-show="(!edit.nameForm.name.$pristine && nameForm.name.$error.required) || 
+        (edit.nameForm.$submitted && edit.nameForm.name.$error.required)">This Field is required</p>
+        
+        <ul class="help-block" ng-show="(!edit.nameForm.name.$pristine && edit.nameForm.name.$error.pattern) || 
+        (!edit.nameForm.name.$pristine && edit.nameForm.name.$error.minlength) || 
+        (!edit.nameForm.name.$pristine && edit.nameForm.name.$error.maxlength) ">
+            <li>Name must be min 3 and max 30 characters.</li>
+            <li>Do not use special characters or numbers.</li>
+        </ul>
+    </div>
+    <br>
+    <button ng-disabled="edit.disabled" class="btn btn-primary" type="submit">Update</button>
+</form>
+
+<br>
+
+
+
+
+<div class="row show-hide-message" ng-show="edit.successMsg">
+    <div class="alert alert-success">{{ edit.successMsg }}</div>
+</div>
+
+<div class="row show-hide-message" ng-show="edit.errorMsg">
+    <div class="alert alert-danger">{{ edit.errorMsg }}</div>
+</div>
